@@ -65,6 +65,7 @@ const PlayQuiz = () => {
           >
             Start Quiz
           </button>
+          {startTest && <></>}
         </div>
       )}
     </div>
