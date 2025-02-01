@@ -51,7 +51,7 @@ const Landing = () => {
           <h4 className="bg-clip-text text-transparent font-semibold bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-[#b91c1c] via-[#ef4444] to-[#fca5a5]">
             QUIZ ARENA
           </h4>
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-2 tracking-wider">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold mb-2 tracking-wider">
             Careers with
           </h1>
 
@@ -61,14 +61,14 @@ const Landing = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className={`text-transparent bg-clip-text text-3xl sm:text-5xl md:text-7xl font-bold tracking-wider ${texts[count].styling}`}
+            className={`text-transparent bg-clip-text text-4xl sm:text-5xl md:text-7xl font-bold tracking-wider ${texts[count].styling}`}
           >
             {texts[count].text}
           </motion.h2>
         </div>
 
         <div className="mt-3 max-w-md text-center">
-          <h3 className="text-gray-300 text-lg md:text-xl leading-relaxed">
+          <h3 className="max-w-[400px] text-gray-300 text-lg md:text-xl leading-relaxed">
             Unlock the full spectrum of careers at game-changing companies.
           </h3>
         </div>
