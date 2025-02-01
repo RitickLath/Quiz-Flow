@@ -25,7 +25,7 @@ const texts: TextProperty[] = [
   },
 ];
 
-const LandingPage = () => {
+const Landing = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const LandingPage = () => {
 
   return (
     <div className="">
-      <div className="z-10 fixed -top-8 w-full h-[100px] md:h-[110px] lg:h-[120px] shadow-md">
+      <div className="bg-[#101D33] z-10 fixed -top-8 w-full h-[100px] md:h-[110px] lg:h-[120px] shadow-md">
         <img
           className="w-32 md:w-36 h-auto"
           src="/images/Arena.png"
@@ -86,4 +86,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default Landing;

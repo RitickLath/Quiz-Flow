@@ -1,9 +1,11 @@
-import LandingPage from "./component/Pages/LandingPage";
+import Evaluation from "./component/Pages/Evaluation";
+import Landing from "./component/Pages/Landing";
 
 const App = () => {
   return (
     <div className="">
-      <LandingPage />
+      <Landing />
+      <Evaluation />
     </div>
   );
 };
