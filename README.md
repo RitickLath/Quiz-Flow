@@ -7,7 +7,7 @@ This is a **Quiz Application** where users can take a demo quiz by answering mul
 The application fetches quiz data from an API and presents it in an interactive way, keeping track of the answers and displaying a detailed solution after each question.
 
 ## Live Video
-https://github.com/user-attachments/assets/f1aa5d5d-339d-4fa4-83d1-cd205b4e4b90
+https://github.com/user-attachments/assets/cae86417-015b-4144-9c36-e2fde75b043b
 
 ## Features
 
