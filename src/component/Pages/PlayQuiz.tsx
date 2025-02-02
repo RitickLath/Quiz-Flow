@@ -66,7 +66,7 @@ const PlayQuiz = () => {
               onClick={() => {
                 if (localStorage.getItem("Demo")) {
                   alert("You Already Have Taken Free Demo");
-                  setStartTest(true); // make it false after testing
+                  //setStartTest(true); // make it false after testing
                 } else {
                   localStorage.setItem("Demo", "Played");
                   setStartTest(true);

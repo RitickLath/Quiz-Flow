@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import CountDown from "./CountDown";
 import Progressbar from "./Progressbar";
-import { div } from "framer-motion/client";
+import ExitButton from "./ExitButton";
+import Question from "./Question";
+import Solution from "./Solution";
+import Navigation from "./Navigation";
+import Counter from "./Counter";
 
 interface Question {
   description: string;
@@ -22,12 +27,16 @@ const StartTest = ({ data, setStartTest }: PropType) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [selection, setSelection] = useState(false);
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [, setAnswers] = useState<string[]>([]);
   const [showSolution, setShowSolution] = useState(false);
+  const [start, setStart] = useState(false);
 
-  if (!data || !data.questions || data.questions.length === 0) {
-    return <div className="text-white text-center">No questions available</div>;
-  }
+  useEffect(() => {
+    document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   const handleNext = () => {
     if (currentQuestion < data.questions.length - 1) {
@@ -51,66 +60,42 @@ const StartTest = ({ data, setStartTest }: PropType) => {
   };
 
   return (
-    <div className="absolute left-0 w-full h-screen flex items-center justify-center bg-[#101D33] text-white">
-      <div className="w-full max-w-3xl p-6 bg-gray-800 rounded-lg shadow-lg">
-        <Progressbar
-          currentQuestion={currentQuestion}
-          totalQuestion={data.questions.length}
-        />
-        <br />
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          {data.questions[currentQuestion]?.description}
-        </h1>
-
-        <div className="space-y-3">
-          {data.questions[currentQuestion]?.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswer(option.is_correct, index)}
-              className={`cursor-pointer w-full p-4 text-left rounded-lg border transition-all duration-300 
-              ${
-                selectedOption === index
-                  ? option.is_correct
-                    ? "bg-green-500"
-                    : "bg-red-500"
-                  : "bg-gray-700"
-              } ${selection ? "pointer-events-none" : ""}`}
-            >
-              {option.description}
-            </button>
-          ))}
-        </div>
-
-        {showSolution && (
-          <div className="mt-4 p-4 bg-gray-700 rounded-lg">
-            <h2 className="text-lg font-bold">Detailed Solution:</h2>
-            <p>{data?.questions[currentQuestion].detailed_solution}</p>
-          </div>
-        )}
-
-        <div className="mt-6 text-center">
-          {currentQuestion < data.questions.length - 1 ? (
-            <button
-              onClick={handleNext}
-              className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-300"
-            >
-              Next Question →
-            </button>
-          ) : (
-            <div>
-              <p className="text-green-400 font-semibold">
-                Quiz Completed! Score: {score}/{data.questions.length}
-              </p>
-              <button
-                onClick={() => setStartTest(false)}
-                className="mt-4 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300"
-              >
-                Exit Quiz
-              </button>
-            </div>
+    <div className="w-full mt-12 flex items-center justify-center bg-[#101D33] text-white">
+      {!start && <CountDown setStart={setStart} />}
+      {start && (
+        <div className="relative w-full max-w-3xl p-6 bg-gray-800 rounded-lg shadow-lg">
+          <ExitButton onExit={() => setStartTest(false)} />
+          <br />
+          <br />
+          <Counter
+            setCurrentQuestion={setCurrentQuestion}
+            total={data.questions.length}
+          />
+          <Progressbar
+            currentQuestion={currentQuestion + 1}
+            totalQuestion={data.questions.length}
+          />
+          <Question
+            question={data.questions[currentQuestion]?.description}
+            options={data.questions[currentQuestion]?.options}
+            onAnswer={handleAnswer}
+            selectedOption={selectedOption}
+            selection={selection}
+          />
+          {showSolution && (
+            <Solution
+              solution={data.questions[currentQuestion].detailed_solution}
+            />
           )}
+          <Navigation
+            totalQuestions={data.questions.length}
+            onNext={handleNext}
+            score={score}
+            isQuizComplete={currentQuestion === data.questions.length - 1}
+            onExit={() => setStartTest(false)}
+          />
         </div>
-      </div>
+      )}
     </div>
   );
 };
